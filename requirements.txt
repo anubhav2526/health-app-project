@@ -1,0 +1,4 @@
+streamlit
+crewai
+sentence-transformers
+python-dotenv

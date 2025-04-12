@@ -7,7 +7,7 @@ def app():
     user_id = st.session_state['user_id']
     profile = get_profile(user_id) or {}
 
-    age = st.number_input("Age", min_value=1, value=int(profile.get('age', 18)))
+    age = st.number_input("Age", min_value=1, value=int(profile.get('age') if profile.get('age') is not None else 18))
     gender = st.selectbox("Gender", ["Male", "Female", "Other"], index=["Male", "Female", "Other"].index(profile.get('gender', "Male")))
     height = st.number_input("Height (cm)", min_value=1.0, value=profile.get('height', 170.0))
     weight = st.number_input("Weight (kg)", min_value=1.0, value=profile.get('weight', 70.0))

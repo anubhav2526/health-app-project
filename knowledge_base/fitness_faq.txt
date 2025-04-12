@@ -1,5 +1,36 @@
-What is a good workout for beginners?
-A good beginner workout includes bodyweight exercises like squats, push-ups, and planks, 3 sets of 10-15 reps, 2-3 times a week.
-
-How much protein do I need?
-The general recommendation is 0.8-1.2g of protein per kg of body weight daily, more if you're active or building muscle.
+=== User's Profile ===
+Username: safdar | Age: 70.0 | Height: 70.0 | Weight Goal: N/A
+=== User's Workouts ===
+Date: 2025-03-15 | Exercise: squat | Sets: 5 | Reps: 5 | Weight: 0.0
+Date: 2025-03-15 | Exercise: deadlift | Sets: 4 | Reps: 10 | Weight: 20.0
+Date: 2025-03-15 | Exercise: benchpress | Sets: 4 | Reps: 10 | Weight: 50.0
+Date: 2025-03-15 | Exercise: N/A | Sets: 1 | Reps: 10 | Weight: 0.0
+Date: 2025-03-15 | Exercise: N/A | Sets: 1 | Reps: 10 | Weight: 0.0
+Date: 2025-03-15 | Exercise: yuiyiuyu | Sets: 7 | Reps: 10 | Weight: 10.0
+Date: 2025-03-15 | Exercise: N/A | Sets: 1 | Reps: 10 | Weight: 0.0
+Date: 2025-03-10 | Exercise: N/A | Sets: 1 | Reps: 10 | Weight: 0.0
+=== User's Food Logs ===
+Date: 2025-03-15 | Food: Unknown Food | Calories: Unknown Calories | Quantity: 200.0
+Date: 2025-03-15 | Food: Unknown Food | Calories: Unknown Calories | Quantity: 200.0
+Date: 2025-03-15 | Food: Unknown Food | Calories: Unknown Calories | Quantity: 50.0
+Date: 2025-03-15 | Food: Unknown Food | Calories: Unknown Calories | Quantity: 100.0
+Date: 2025-03-15 | Food: Unknown Food | Calories: Unknown Calories | Quantity: 100.0
+Date: 2025-03-15 | Food: Unknown Food | Calories: Unknown Calories | Quantity: 50.0
+Date: 2025-03-15 | Food: Unknown Food | Calories: Unknown Calories | Quantity: 100.0
+=== User's Weight Logs ===
+Date: 2025-03-15 | Weight: 70.0
+Date: 2025-03-15 | Weight: 65.0
+Date: 2025-03-15 | Weight: 68.0
+Date: 2025-03-15 | Weight: 72.0
+Date: 2025-03-15 | Weight: 75.0
+Date: 2025-03-15 | Weight: 70.0
+Date: 2025-03-15 | Weight: 70.0
+Date: 2025-03-15 | Weight: 80.0
+Date: 2025-03-15 | Weight: 70.0
+=== User's BMI Records ===
+Date: 2025-03-15 | BMI: 24.221453287197235
+Date: 2025-03-15 | BMI: 142.8571428571429
+Date: 2025-03-15 | BMI: 142.8571428571429
+Date: 2025-03-15 | BMI: 26.729927495071667
+Date: 2025-03-15 | BMI: 24.221453287197235
+Date: 2025-03-10 | BMI: 142.8571428571429

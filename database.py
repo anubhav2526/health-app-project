@@ -4,9 +4,18 @@ from bcrypt import hashpw, gensalt
 from pydantic import BaseModel, Field
 from typing import Optional, List
 from sentence_transformers import SentenceTransformer, util
+import os
+from pathlib import Path
+
+# Get the directory where the database.py file is located
+current_dir = Path(__file__).parent
+# Define the path to the database file
+DB_PATH = current_dir / 'app.db'
+# Define the path to the knowledge base file
+KB_PATH = current_dir / 'knowledge_base' / 'fitness_faq.txt'
 
 def update_settings(user_id, notifications=None, units=None):
-    conn = sqlite3.connect(r'D:\GenerativeAI_Projects\Health APP\fitness_app\app.db')
+    conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM settings WHERE user_id = ?", (user_id,))
     if cursor.fetchone() is None:
@@ -30,7 +39,7 @@ def update_settings(user_id, notifications=None, units=None):
     return get_settings(user_id)
 
 def get_settings(user_id):
-    conn = sqlite3.connect(r'D:\GenerativeAI_Projects\Health APP\fitness_app\app.db')
+    conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     cursor.execute("SELECT notifications, units FROM settings WHERE user_id = ?", (user_id,))
     row = cursor.fetchone()
@@ -38,7 +47,7 @@ def get_settings(user_id):
     return {"notifications": row[0], "units": row[1]} if row else {"notifications": None, "units": None}
 
 def update_goals(user_id, weight_goal=None, calorie_goal=None):
-    conn = sqlite3.connect(r'D:\GenerativeAI_Projects\Health APP\fitness_app\app.db')
+    conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM goals WHERE user_id = ?", (user_id,))
     if cursor.fetchone() is None:
@@ -62,7 +71,7 @@ def update_goals(user_id, weight_goal=None, calorie_goal=None):
     return get_goals(user_id)
 
 def get_goals(user_id):
-    conn = sqlite3.connect(r'D:\GenerativeAI_Projects\Health APP\fitness_app\app.db')
+    conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     cursor.execute("SELECT weight_goal, calorie_goal FROM goals WHERE user_id = ?", (user_id,))
     row = cursor.fetchone()
@@ -70,7 +79,7 @@ def get_goals(user_id):
     return {"weight_goal": row[0], "calorie_goal": row[1]} if row else {"weight_goal": None, "calorie_goal": None}
 
 def log_weight(user_id, weight):
-    conn = sqlite3.connect(r'D:\GenerativeAI_Projects\Health APP\fitness_app\app.db')
+    conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     cursor.execute("INSERT INTO weights (user_id, date, weight) VALUES (?, ?, ?)",
                     (user_id, datetime.now().strftime('%Y-%m-%d'), weight))
@@ -79,7 +88,7 @@ def log_weight(user_id, weight):
     return True
 
 def add_food(name, calories):
-    conn = sqlite3.connect(r'D:\GenerativeAI_Projects\Health APP\fitness_app\app.db')
+    conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     try:
         cursor.execute("INSERT INTO foods (name, calories) VALUES (?, ?)", (name, calories))
@@ -95,7 +104,7 @@ def add_food(name, calories):
         return False
 
 def get_foods():
-    conn = sqlite3.connect(r'D:\GenerativeAI_Projects\Health APP\fitness_app\app.db')
+    conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM foods")
     columns = [description[0] for description in cursor.description]
@@ -104,7 +113,7 @@ def get_foods():
     return [dict(zip(columns, row)) for row in rows]
 
 def log_food(user_id, food_id, quantity):
-    conn = sqlite3.connect(r'D:\GenerativeAI_Projects\Health APP\fitness_app\app.db')
+    conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     cursor.execute("INSERT INTO food_logs (user_id, date, food_id, quantity) VALUES (?, ?, ?, ?)",
                     (user_id, datetime.now().strftime('%Y-%m-%d'), food_id, quantity))
@@ -113,7 +122,7 @@ def log_food(user_id, food_id, quantity):
     return True
 
 def get_profile(user_id):
-    conn = sqlite3.connect(r'D:\GenerativeAI_Projects\Health APP\fitness_app\app.db')
+    conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     cursor.execute("SELECT id, username, age, height, weight_goal FROM users WHERE id = ?", (user_id,))
     user = cursor.fetchone()
@@ -124,7 +133,7 @@ def get_profile(user_id):
     return None
 
 def update_profile(user_id, gender=None, age=None, height=None, weight_goal=None, activity_level=None):
-    conn = sqlite3.connect(r'D:\GenerativeAI_Projects\Health APP\fitness_app\app.db')
+    conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     updates = []
     values = []
@@ -152,7 +161,7 @@ def update_profile(user_id, gender=None, age=None, height=None, weight_goal=None
     return get_profile(user_id)
 
 def get_user(username):
-    conn = sqlite3.connect(r'D:\GenerativeAI_Projects\Health APP\fitness_app\app.db')
+    conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM users WHERE username = ?", (username,))
     user = cursor.fetchone()
@@ -161,7 +170,7 @@ def get_user(username):
     return dict(zip(columns, user)) if user else None
 
 def create_user(username, password):
-    conn = sqlite3.connect(r'D:\GenerativeAI_Projects\Health APP\fitness_app\app.db')
+    conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     try:
         hashed_password = hashpw(password.encode(), gensalt()).decode()
@@ -177,7 +186,7 @@ def create_user(username, password):
         return None
 
 def get_workouts(user_id):
-    conn = sqlite3.connect(r'D:\GenerativeAI_Projects\Health APP\fitness_app\app.db')
+    conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM workouts WHERE user_id = ? ORDER BY date DESC", (user_id,))
     columns = [description[0] for description in cursor.description]
@@ -186,7 +195,7 @@ def get_workouts(user_id):
     return [dict(zip(columns, row)) for row in rows]
 
 def log_workout(user_id, exercise, sets, reps, weight):
-    conn = sqlite3.connect(r'D:\GenerativeAI_Projects\Health APP\fitness_app\app.db')
+    conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     cursor.execute("INSERT INTO workouts (user_id, date, exercise, sets, reps, weight) VALUES (?, ?, ?, ?, ?, ?)",
                     (user_id, datetime.now().strftime('%Y-%m-%d'), exercise, sets, reps, weight))
@@ -195,7 +204,7 @@ def log_workout(user_id, exercise, sets, reps, weight):
     return True
 
 def get_food_logs(user_id):
-    conn = sqlite3.connect(r'D:\GenerativeAI_Projects\Health APP\fitness_app\app.db')
+    conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM food_logs WHERE user_id = ? ORDER BY date DESC", (user_id,))
     columns = [description[0] for description in cursor.description]
@@ -204,7 +213,7 @@ def get_food_logs(user_id):
     return [dict(zip(columns, row)) for row in rows]
 
 def get_weights(user_id):
-    conn = sqlite3.connect(r'D:\GenerativeAI_Projects\Health APP\fitness_app\app.db')
+    conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM weights WHERE user_id = ? ORDER BY date DESC", (user_id,))
     columns = [description[0] for description in cursor.description]
@@ -214,7 +223,7 @@ def get_weights(user_id):
 
 def log_bmi(user_id, weight, height):
     bmi = weight / ((height / 100) ** 2) if height > 0 else 0
-    conn = sqlite3.connect(r'D:\GenerativeAI_Projects\Health APP\fitness_app\app.db')
+    conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     cursor.execute("INSERT INTO bmi_records (user_id, date, bmi) VALUES (?, ?, ?)",
                     (user_id, datetime.now().strftime('%Y-%m-%d'), bmi))
@@ -223,7 +232,7 @@ def log_bmi(user_id, weight, height):
     return True
 
 def get_bmi_records(user_id):
-    conn = sqlite3.connect(r'D:\GenerativeAI_Projects\Health APP\fitness_app\app.db')
+    conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM bmi_records WHERE user_id = ? ORDER BY date DESC", (user_id,))
     columns = [description[0] for description in cursor.description]
@@ -247,12 +256,12 @@ class KnowledgeBaseTool(BaseModel):
 
     def load_knowledge_base(self):
         """Loads fitness and nutrition knowledge entries from a text file."""
-        knowledge_base_path = r'D:\GenerativeAI_Projects\Health APP\fitness_app\knowledge_base.txt' # Ensure this path is correct
         try:
-            with open(knowledge_base_path, 'r', encoding='utf-8') as file:
-                return [line.strip() for line in file.readlines() if line.strip()]
-        except FileNotFoundError:
-            print(f"Knowledge base file not found at: {knowledge_base_path}")
+            with open(KB_PATH, 'r', encoding='utf-8') as f:
+                content = f.read().splitlines()
+            return [line for line in content if line.strip()]
+        except Exception as e:
+            print(f"Error loading knowledge base: {e}")
             return []
 
     def initialize_embeddings(self):

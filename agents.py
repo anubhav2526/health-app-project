@@ -1,20 +1,46 @@
 from crewai import Agent, LLM
 import os
 from dotenv import load_dotenv
+from pathlib import Path
+import streamlit as st
 
 # Load environment variables
 load_dotenv()
 
+# Get API key from multiple sources
+def get_api_key():
+    # Try to get from Streamlit secrets
+    if 'api_keys' in st.secrets:
+        return st.secrets['api_keys']['google']
+    
+    # Try to get from config.py
+    try:
+        from config import GOOGLE_API_KEY
+        return GOOGLE_API_KEY
+    except ImportError:
+        pass
+    
+    # Try to get from environment variables
+    api_key = os.environ.get("GOOGLE_API_KEY")
+    if api_key:
+        return api_key
+    
+    # Default to a placeholder (this will cause the LLM to fail gracefully)
+    return "api-key-not-found"
+
 def get_unified_llm():
     """Create and return the unified LLM instance."""
-    api_key = os.getenv("GEMINI_API_KEY")
-    if not api_key:
-        raise ValueError("GEMINI_API_KEY not found in environment variables")
-    return LLM(
-        model="gemini/gemini-1.5-flash",
-        api_key=api_key,
-        temperature=0.1
-    )
+    try:
+        api_key = get_api_key()
+        return LLM(
+            model="gemini/gemini-1.5-flash",
+            api_key=api_key,
+            temperature=0.1
+        )
+    except Exception as e:
+        print(f"Error initializing LLM: {e}")
+        # Return a minimal placeholder that won't break the code
+        return None
 
 def get_health_assistant(user_id):
     """
@@ -28,6 +54,12 @@ def get_health_assistant(user_id):
 
     # 1. Create the unified LLM.
     unified_llm = get_unified_llm()
+    if unified_llm is None:
+        # Return a simplified response if LLM initialization fails
+        return {
+            'role': "Health Assistant",
+            'error': "Unable to initialize AI assistant. API key may be missing or invalid."
+        }
 
     # 2. Create specialized tools.
     workout_tool = WorkoutDataTool(user_id=user_id)
@@ -84,7 +116,8 @@ def get_health_assistant(user_id):
     user_data_text = "\n".join(user_data_summary) if user_data_summary else "No user data logged yet."
 
     # 5. Write the aggregated user data to the knowledge base file.
-    faq_file_path = os.path.join("knowledge_base", "fitness_faq.txt")
+    current_dir = Path(__file__).parent
+    faq_file_path = current_dir / "knowledge_base" / "fitness_faq.txt"
     try:
         with open(faq_file_path, "w", encoding="utf-8") as faq_file:
             faq_file.write(user_data_text)
@@ -93,33 +126,59 @@ def get_health_assistant(user_id):
         print(f"Error writing to {faq_file_path}: {e}")
 
     # 6. Reload the KnowledgeBaseTool to update its entries and embeddings.
-    knowledge_tool._kb_entries = knowledge_tool.load_knowledge_base()
-    knowledge_tool.initialize_embeddings()
+    try:
+        knowledge_tool._kb_entries = knowledge_tool.load_knowledge_base()
+        knowledge_tool.initialize_embeddings()
+    except Exception as e:
+        print(f"Error initializing knowledge tool: {e}")
 
     # 7. Create and return the Health Assistant agent with all tools.
-    return Agent(
-        role="Health Assistant",
-        goal="Assist users with customized fitness and nutrition queries, and provide personalized answers based on your logged data.",
-        backstory=(
-            "You are an AI health assistant specialized in fitness and nutrition. All user data—including workouts, food logs, weight logs, "
-            "BMI records, and profile information—is stored in app.db and aggregated in a file named 'fitness_faq.txt' within the 'knowledge_base' folder. "
-            "You can also directly query the database if needed. Use this data to provide detailed, personalized answers."
-        ),
-        tools=[knowledge_tool, workout_tool, nutrition_tool, db_query_tool],
-        verbose=True,
-        llm=unified_llm
-    )
+    try:
+        return Agent(
+            role="Health Assistant",
+            goal="Assist users with customized fitness and nutrition queries, and provide personalized answers based on your logged data.",
+            backstory=(
+                "You are an AI health assistant specialized in fitness and nutrition. All user data—including workouts, food logs, weight logs, "
+                "BMI records, and profile information—is stored in app.db and aggregated in a file named 'fitness_faq.txt' within the 'knowledge_base' folder. "
+                "You can also directly query the database if needed. Use this data to provide detailed, personalized answers."
+            ),
+            tools=[knowledge_tool, workout_tool, nutrition_tool, db_query_tool],
+            verbose=True,
+            llm=unified_llm
+        )
+    except Exception as e:
+        print(f"Error creating agent: {e}")
+        return {
+            'role': "Health Assistant",
+            'error': f"Unable to initialize AI assistant: {e}"
+        }
 
 def get_reminders_agent(user_id):
     """Create and return the Reminders Agent with tools."""
     from tools import ActivityCheckerTool
+    
     unified_llm = get_unified_llm()
+    if unified_llm is None:
+        # Return a simplified response if LLM initialization fails
+        return {
+            'role': "Reminders Agent",
+            'error': "Unable to initialize AI assistant. API key may be missing or invalid."
+        }
+    
     tool = ActivityCheckerTool(user_id=user_id)
-    return Agent(
-        role="Reminders Agent",
-        goal="Generate reminders, exercise suggestions, diet suggestions, and motivational quotes.",
-        backstory="You are an AI that helps users stay on track with their fitness goals.",
-        tools=[tool],
-        verbose=True,
-        llm=unified_llm
-    )
+    
+    try:
+        return Agent(
+            role="Reminders Agent",
+            goal="Generate reminders, exercise suggestions, diet suggestions, and motivational quotes.",
+            backstory="You are an AI that helps users stay on track with their fitness goals.",
+            tools=[tool],
+            verbose=True,
+            llm=unified_llm
+        )
+    except Exception as e:
+        print(f"Error creating reminders agent: {e}")
+        return {
+            'role': "Reminders Agent",
+            'error': f"Unable to initialize AI assistant: {e}"
+        }

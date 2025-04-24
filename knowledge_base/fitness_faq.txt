@@ -1,36 +1,62 @@
 === User's Profile ===
-Username: safdar | Age: 70.0 | Height: 70.0 | Weight Goal: N/A
-=== User's Workouts ===
-Date: 2025-03-15 | Exercise: squat | Sets: 5 | Reps: 5 | Weight: 0.0
-Date: 2025-03-15 | Exercise: deadlift | Sets: 4 | Reps: 10 | Weight: 20.0
-Date: 2025-03-15 | Exercise: benchpress | Sets: 4 | Reps: 10 | Weight: 50.0
-Date: 2025-03-15 | Exercise: N/A | Sets: 1 | Reps: 10 | Weight: 0.0
-Date: 2025-03-15 | Exercise: N/A | Sets: 1 | Reps: 10 | Weight: 0.0
-Date: 2025-03-15 | Exercise: yuiyiuyu | Sets: 7 | Reps: 10 | Weight: 10.0
-Date: 2025-03-15 | Exercise: N/A | Sets: 1 | Reps: 10 | Weight: 0.0
-Date: 2025-03-10 | Exercise: N/A | Sets: 1 | Reps: 10 | Weight: 0.0
-=== User's Food Logs ===
-Date: 2025-03-15 | Food: Unknown Food | Calories: Unknown Calories | Quantity: 200.0
-Date: 2025-03-15 | Food: Unknown Food | Calories: Unknown Calories | Quantity: 200.0
-Date: 2025-03-15 | Food: Unknown Food | Calories: Unknown Calories | Quantity: 50.0
-Date: 2025-03-15 | Food: Unknown Food | Calories: Unknown Calories | Quantity: 100.0
-Date: 2025-03-15 | Food: Unknown Food | Calories: Unknown Calories | Quantity: 100.0
-Date: 2025-03-15 | Food: Unknown Food | Calories: Unknown Calories | Quantity: 50.0
-Date: 2025-03-15 | Food: Unknown Food | Calories: Unknown Calories | Quantity: 100.0
-=== User's Weight Logs ===
-Date: 2025-03-15 | Weight: 70.0
-Date: 2025-03-15 | Weight: 65.0
-Date: 2025-03-15 | Weight: 68.0
-Date: 2025-03-15 | Weight: 72.0
-Date: 2025-03-15 | Weight: 75.0
-Date: 2025-03-15 | Weight: 70.0
-Date: 2025-03-15 | Weight: 70.0
-Date: 2025-03-15 | Weight: 80.0
-Date: 2025-03-15 | Weight: 70.0
-=== User's BMI Records ===
-Date: 2025-03-15 | BMI: 24.221453287197235
-Date: 2025-03-15 | BMI: 142.8571428571429
-Date: 2025-03-15 | BMI: 142.8571428571429
-Date: 2025-03-15 | BMI: 26.729927495071667
-Date: 2025-03-15 | BMI: 24.221453287197235
-Date: 2025-03-10 | BMI: 142.8571428571429
+Username: anubhav2525 | Age: None | Height: None | Weight Goal: N/A
+
+What should I eat before a workout?
+Before a workout, it's good to have a meal with carbohydrates and some protein about 2-3 hours before exercising. Good options include a chicken sandwich, pasta with lean meat, or oatmeal with fruit.
+
+What should I eat after a workout?
+After a workout, focus on a combination of protein and carbohydrates to help with muscle recovery. Options include a protein shake with banana, greek yogurt with berries, or a turkey sandwich.
+
+How much water should I drink daily?
+The general recommendation is to drink about 8 glasses (64 ounces) of water per day, but this may vary based on your activity level, climate, and overall health.
+
+How often should I work out?
+For general fitness, aim for at least 150 minutes of moderate aerobic activity or 75 minutes of vigorous activity per week, plus strength training for all major muscle groups at least twice per week.
+
+What's the best exercise for weight loss?
+The best exercise for weight loss combines both cardio and strength training. High-intensity interval training (HIIT) is particularly effective for burning calories and improving fitness.
+
+How do I build muscle?
+To build muscle, focus on resistance training with progressive overload (gradually increasing weight or reps), consume adequate protein (about 1.6-2.2g per kg of body weight), and ensure you're getting enough calories and rest.
+
+What should my macronutrient breakdown be?
+A general guideline is 45-65% carbohydrates, 20-35% fats, and 10-35% protein, but this can vary based on your goals (weight loss, muscle gain, endurance training) and individual needs.
+
+How can I improve my flexibility?
+Regular stretching, yoga, or pilates can help improve flexibility. Aim to stretch major muscle groups at least 2-3 times per week, holding each stretch for 30-60 seconds.
+
+What's the difference between cardio and strength training?
+Cardio exercises (running, swimming, cycling) primarily improve heart and lung function, while strength training (weightlifting, resistance exercises) builds muscle strength and endurance.
+
+How do I know if I'm exercising at the right intensity?
+Use the "talk test" - during moderate exercise, you should be able to talk but not sing. During vigorous exercise, you should only be able to say a few words before needing to catch your breath.
+
+What are some good exercises for beginners?
+Walking, swimming, cycling, and basic bodyweight exercises like squats, lunges, push-ups, and planks are excellent for beginners.
+
+How do I prevent injury while exercising?
+Always warm up before exercising, use proper form, increase intensity gradually, wear appropriate gear, and listen to your body. Rest when needed and don't push through pain.
+
+What's the best way to track fitness progress?
+Track various metrics: weight, body measurements, fitness tests (how many push-ups you can do, how far you can run in a set time), photos, and how clothes fit. Don't rely solely on the scale.
+
+Should I eat differently on workout days vs. rest days?
+On workout days, you may need slightly more calories and carbohydrates to fuel and recover from exercise. On rest days, you can typically reduce carbohydrate intake slightly while maintaining protein intake.
+
+What are some signs of overtraining?
+Signs include persistent fatigue, decreased performance, increased resting heart rate, insomnia, irritability, frequent illnesses, and persistent muscle soreness.
+
+How important is sleep for fitness?
+Sleep is crucial for recovery, hormone regulation, and performance. Aim for 7-9 hours of quality sleep per night to optimize fitness results and overall health.
+
+Can I build muscle and lose fat at the same time?
+Yes, especially for beginners, those returning to exercise after a break, or those with significant body fat. It becomes more challenging as you get fitter, often requiring a more specific approach.
+
+What should I do on rest days?
+Rest days can include light activities like walking, gentle yoga, or stretching (active recovery), or complete rest. Use this time to focus on adequate nutrition and sleep for recovery.
+
+How can I stay motivated to exercise?
+Set specific goals, find activities you enjoy, workout with friends, track your progress, reward yourself, mix up your routine, and remember why you started.
+
+What's the difference between losing weight and losing fat?
+Weight loss includes losing water, muscle, and fat. Fat loss specifically targets reducing body fat while minimizing muscle loss, which is generally healthier and more sustainable.

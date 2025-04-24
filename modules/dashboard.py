@@ -1,7 +1,6 @@
 import streamlit as st
 from database import get_workouts, get_food_logs, get_weights, get_bmi_records
 from agents import get_reminders_agent
-from crewai import Task
 
 def app():
     st.title("Progress Dashboard")
@@ -22,18 +21,22 @@ def app():
 
     st.subheader("Reminders & Messages")
     task_description = "Generate reminders or motivational messages based on the user's recent activity."
-    task = Task(
-        description=task_description,
-        expected_output="A list of messages"
-    )
+    # Create a simple task object
+    class SimpleTask:
+        def __init__(self, description):
+            self.description = description
+    
+    task = SimpleTask(task_description)
 
     try:
-        response = st.session_state['reminders_agent'].execute_task(task, context=[])
+        response = st.session_state['reminders_agent'].execute_task(task)
         messages = response.split('\n') if response else []
         for msg in messages:
-            st.info(msg)
+            if msg.strip():  # Only display non-empty messages
+                st.info(msg)
     except Exception as e:
         st.error(f"Error generating reminders: {e}")
+        st.info("AI-powered reminders are currently unavailable. Stay motivated by setting regular workout schedules!")
 
     st.subheader("Recent Workouts")
     workouts = get_workouts(user_id)[:5]

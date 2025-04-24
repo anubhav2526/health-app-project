@@ -7,12 +7,22 @@ from sentence_transformers import SentenceTransformer, util
 import os
 from pathlib import Path
 
+# Import configuration
+try:
+    from config import GOOGLE_API_KEY, DATABASE_PATH
+except ImportError:
+    GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY", "")
+    DATABASE_PATH = "app.db"
+
 # Get the directory where the database.py file is located
 current_dir = Path(__file__).parent
 # Define the path to the database file
-DB_PATH = current_dir / 'app.db'
+DB_PATH = current_dir / DATABASE_PATH
 # Define the path to the knowledge base file
 KB_PATH = current_dir / 'knowledge_base' / 'fitness_faq.txt'
+
+# API key for Google services
+API_KEY = GOOGLE_API_KEY
 
 def update_settings(user_id, notifications=None, units=None):
     conn = sqlite3.connect(DB_PATH)
